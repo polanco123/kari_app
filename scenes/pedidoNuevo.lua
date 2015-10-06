@@ -382,7 +382,7 @@ function ingresandoOrden( event )
         elseif tallaTextEvent ==  6 then
             xxl[numFila] = numeroOrden
         elseif tallaTextEvent ==  7 then
-            xxl[numFila] = numeroOrden
+            xxxl[numFila] = numeroOrden
         elseif tallaTextEvent ==  8 then
             uni[numFila] = numeroOrden
         end
@@ -686,7 +686,7 @@ function scene:enterScene( event )
     if contItemsCat <= 4 then
         imageSiguiente.alpha = 0
     end
-    
+
     createNativeTextField()
 
 end

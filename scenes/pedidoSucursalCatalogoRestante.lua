@@ -439,7 +439,7 @@ function ingresandoOrden2( event )
 		elseif tallaTextEvent ==  6 then
 			xxl[numFila] = numeroOrden
 		elseif tallaTextEvent ==  7 then
-			xxl[numFila] = numeroOrden
+			xxxl[numFila] = numeroOrden
 		elseif tallaTextEvent ==  8 then
 			uni[numFila] = numeroOrden
 		end
@@ -580,7 +580,7 @@ function registrarDetallePedido( folioServ )
 				db_pedido.insertarDetallePedidoLocal(idPedidoSQLite, articulosSQLiteC[i], 6, xxlC[i])				
 				print("Orden registrada: articulo - " .. articulosSQLiteC[i] .. " talla - xxl, orden - " .. xxlC[i])
 				
-				tllXXLC = tllXXLC[i]
+				tllXXL = xxlC[i]
 				ordenaTalla = true
 			end
 			if tonumber(xxxlC[i]) > 0 then -- si en la talla del articulo hay algo
@@ -588,7 +588,7 @@ function registrarDetallePedido( folioServ )
 				db_pedido.insertarDetallePedidoLocal(idPedidoSQLite, articulosSQLiteC[i], 7, xxxlC[i])				
 				print("Orden registrada: articulo - " .. articulosSQLiteC[i] .. " talla - xxxl, orden - " .. xxxlC[i])
 				
-				tllXXXLC = tllXXXLC[i]
+				tllXXXL = xxxlC[i]
 				ordenaTalla = true
 			end
 			if tonumber(uniC[i]) > 0 then -- si en la talla del articulo hay algo
@@ -596,7 +596,7 @@ function registrarDetallePedido( folioServ )
 				db_pedido.insertarDetallePedidoLocal(idPedidoSQLite, articulosSQLiteC[i], 8, uniC[i])				
 				print("Orden registrada: articulo - " .. articulosSQLiteC[i] .. " talla - uni, orden - " .. uniC[i])
 				
-				tllUNI = tllUNI[i]
+				tllUNI = uniC[i]
 				ordenaTalla = true
 			end
 
@@ -813,7 +813,7 @@ function registrarDetallePedido( folioServ )
 			db_pedido.insertarDetallePedidoLocal(idPedidoSQLite, articulosSQLite[i], 6, xxl[i])				
 			print("Orden registrada: articulo - " .. articulosSQLite[i] .. " talla - xxl, orden - " .. xxl[i])
 			
-			tllXXl = xxl[i]
+			tllXXL = xxl[i]
 			ordenaTalla = true
 		end
 		if tonumber(xxxl[i]) > 0 then -- si en la talla del articulo hay algo
@@ -821,7 +821,7 @@ function registrarDetallePedido( folioServ )
 			db_pedido.insertarDetallePedidoLocal(idPedidoSQLite, articulosSQLite[i], 7, xxxl[i])				
 			print("Orden registrada: articulo - " .. articulosSQLite[i] .. " talla - xxxl, orden - " .. xxxl[i])
 			
-			tllXXXl = xxxl[i]
+			tllXXXL = xxxl[i]
 			ordenaTalla = true
 		end
 		if tonumber(uni[i]) > 0 then -- si en la talla del articulo hay algo
@@ -1208,20 +1208,12 @@ function scene:enterScene( event )
     	lC = event.params.l
     	xlC = event.params.xl
     	xxlC = event.params.xxl
-    	xxxlC = event.params.xxl
+    	xxxlC = event.params.xxxl
     	uniC = event.params.uni
 
-    	for i = 1, #sC, 1 do
+    	--[[for i = 1, #sC, 1 do
 			print("elemento: " .. sC[i])
-		end
-
-		for i = 1, #mC, 1 do
-			print("elemento: " .. mC[i])
-		end
-
-		for i = 1, #lC, 1 do
-			print("elemento: " .. lC[i])
-		end
+		end]]
 
 
     	--[[print("sC[1] es : " .. articulosSQLiteC[1] .. "-" .. articulosC[1] ..  "-" .. sC[1])

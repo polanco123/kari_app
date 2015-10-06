@@ -141,8 +141,7 @@ function crearFilaDetallePedido( item )
 
             --sku
             sku[posc] = display.newText( {
-                --text = item.sku,
-                text =  item.imagen,    
+                text = item.sku,
                 x = 180, y = posicion_y_vp - 30, width = tdHeaderWitdh[2],
                 font = native.BrushScriptStd, fontSize = 14, align = "center"
             })
@@ -259,7 +258,7 @@ function scene:enterScene( event )
 
     local clientePedido = display.newText( {
         text = "Cliente: ",     
-        x = 400, y = 100, width = 800,
+        x = 400, y = 100, width = 850,
         font = native.BrushScriptStd, fontSize = 16, align = "right"
     })
     clientePedido:setFillColor( 0 )
@@ -267,7 +266,7 @@ function scene:enterScene( event )
 
     local sucursalPedido = display.newText( {
         text = "Sucursal: ",     
-        x = 400, y = 130, width = 800,
+        x = 400, y = 130, width = 850,
         font = native.BrushScriptStd, fontSize = 16, align = "right"
     })
     sucursalPedido:setFillColor( 0 )
