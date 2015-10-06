@@ -9,7 +9,6 @@ require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
 local db_pedido = require ("include.db_pedido")
-local Globals = require('include.Globals')
 
 local scene = storyboard.newScene()
 local grupoPedido = display.newGroup()
@@ -26,7 +25,7 @@ local posicion_y_vp = 5
 
 --variables de tabla pedido
 local tdHeaderName = {'Imagen','SKU','XS','S','M','L','XL','XXL','XXXL','UNI',  }
-local tdHeaderWitdh = {130,100,70,70,70,70,70,70,70,70, 70}
+local tdHeaderWitdh = {130,100,60,60,60,60,60,60,60,60,100}
 local fila = {}
 local sku = {}
 local precio = {}
@@ -36,15 +35,29 @@ local precio = {}
 local subtotalProductoDecimal = {}
 local subtotalProducto = {}
 local subtotalSegmento = {}
+local imageRegresarAnterior, imageRegresarSiguiente
+--tallas
+local xs = {}
+local s = {}
+local m = {}
+local l = {}
+local xl = {}
+local xxl = {}
+local xxxl = {}
+local uni = {}
 
 local limiteSegmento = 99
 --contador para los articulos que se han cargado
 local contArticulosCargados
+local pedidoActual = 1
+local totalProductosPedido = 0
 local articuloActual = ''
 local totalGrupoPedido = 0
 local contItem = 0
 local ultimaTalla = 0
 local posc = 0
+
+
 --para saber que talla fue la anterior orden y con ello rellenar con 0
 
 function verHome( event )
@@ -113,10 +126,10 @@ function crearFilaDetallePedido( item )
             --impresion del detalle del pedido
 
             for t = 1, 8, 1 do
-            
+                
                 orden[t] = display.newText( {
                     text = "0",     
-                    x =  193 + (70 * t), y = posicion_y_vp, width = 70,
+                    x =  193 + (60 * t), y = posicion_y_vp, width = 70,
                     font = native.BrushScriptStd, fontSize = 18, align = "center", 
                 })
                 orden[t]:setFillColor(0)
@@ -124,9 +137,17 @@ function crearFilaDetallePedido( item )
 
             end
 
+            xs[contItem] = 0
+            s[contItem] = 0
+            m[contItem] = 0
+            l[contItem] = 0
+            xl[contItem] = 0
+            xxl[contItem] = 0
+            xxxl[contItem] = 0
+            uni[contItem] = 0
+
             --img[posc] = display.newImage("/storage/emulated/0/DCIM/catalogo/"..item.imagen, 65, posicion_y_vp + 10)
             img[posc] = display.newImage("img/catalogo/"..item.imagen, 65, posicion_y_vp + 20)
- 
 
             
             if img[posc] == nil then
@@ -164,7 +185,7 @@ function crearFilaDetallePedido( item )
 
             subtotalProducto[posc] = display.newText({
                 text = "$0.00", 
-                x = width_s - 35, y = posicion_y_vp, width = 55,
+                x = width_s - tdHeaderWitdh[11] + 22, y = posicion_y_vp, width = tdHeaderWitdh[11],
                 font = native.BrushScriptStd, fontSize = 16, align = "right"
             })
             subtotalProducto[posc]:setFillColor( 0 )
@@ -184,11 +205,35 @@ function crearFilaDetallePedido( item )
 
     --se reemplaza el 0 por la orden
     orden[item.talla].text = item.orden
+
+    if item.talla == 1 then
+        xs[contItem] = item.orden
+    end
+    if item.talla == 2 then
+        s[contItem] = item.orden
+    end
+    if item.talla == 3 then
+        m[contItem] = item.orden
+    end
+    if item.talla == 4 then
+        l[contItem] = item.orden
+    end
+    if item.talla == 5 then
+        xl[contItem] = item.orden
+    end
+    if item.talla == 6 then
+        xxl[contItem] = item.orden
+    end
+    if item.talla == 7 then
+        xxxl[contItem] = item.orden
+    end
+    if item.talla == 8 then
+        uni[contItem] = item.orden
+    end
     --totalOrden[posc] = totalOrden[posc] + 
 
-    print("sku: " .. item.sku .. " | talla: " .. item.talla .. " | orden: " .. item.orden)
-    
-    articuloActual = item.sku   
+    articuloActual = item.sku
+    totalProductosPedido =  contItem
 
 
     timeMarker = timer.performWithDelay( 2000, function ( )
@@ -197,15 +242,180 @@ function crearFilaDetallePedido( item )
 
 end
 
+function cambiarSegmentoPedido( event )
+    if event.target.tipo == 1 then
+        transition.to( grupoSegmento[event.target.num],      { x = 0, time = 400, transition = easing.outExpo } )
+        transition.to( grupoSegmento[event.target.num - 1 ], { x = -1000, time = 400, transition = easing.outExpo } )
+        
+        imageAnterior.alpha = 1
+
+        --totalProductosCatalogo = 15
+
+        if ( imageSiguiente.num ) * 4 >= totalProductosPedido  then
+            imageSiguiente.alpha = 0
+        end
+
+        --cambia los valores de las flechas
+        imageSiguiente.num =  imageSiguiente.num + 1
+        imageAnterior.num = imageAnterior.num + 1
+
+        local contTalla = 1
+        
+        --[[for j = pedidoActual, pedidoActual + 3, 1 do 
+        
+            xs[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            s[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            m[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            l[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            uni[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            
+             if orden[contTalla] == nil then
+                    break
+            end
+            
+        end]]
+
+        pedidoActual = pedidoActual + 4
+        
+        --if txtTalla[pedidoActual] ~= nill then
+        
+            local contTalla = 1
+        
+            for j = pedidoActual, pedidoActual + 3, 1 do
+            
+                orden[contTalla].text = xs[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = s[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = m[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = l[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = xl[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = xxl[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = xxxl[j]
+                    contTalla = contTalla + 1
+                orden[contTalla].text = uni[j]
+                    contTalla = contTalla + 1   
+                    
+                if orden[contTalla] == nil then
+                    break
+                end
+                
+            end
+
+        --end 
+
+    else
+        transition.to( grupoSegmento[event.target.num],      { x = 0, time = 400, transition = easing.outExpo } )
+        transition.to( grupoSegmento[event.target.num + 1 ], { x = 1000, time = 400, transition = easing.outExpo } )
+
+        imageSiguiente.alpha = 1
+
+        if event.target.num == 1 then
+            imageAnterior.alpha = 0
+        end
+
+        --cambia los valores de las flechas
+        imageSiguiente.num = imageSiguiente.num - 1
+        imageAnterior.num = imageAnterior.num - 1
+
+        local contTalla = 1
+        
+        --[[for j = pedidoActual, pedidoActual + 3, 1 do
+        
+            xs[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            s[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            m[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            l[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            uni[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            
+            if txtTalla[contTalla] == nil then
+                break
+            end
+            
+        end]]
+        
+        pedidoActual = pedidoActual - 4
+        
+        local contTalla = 1
+        
+        for j = pedidoActual, pedidoActual + 3, 1 do
+        
+                orden[1].text = xs[j]
+                print("xsj: " .. xs[j])
+                    contTalla = contTalla + 1
+                print("conttalla: " .. contTalla)
+                orden[2].text = s[j]
+                    contTalla = contTalla + 1
+                orden[3].text = m[j]
+                print("mj: " .. m[j])
+                    contTalla = contTalla + 1
+                orden[4].text = l[j]
+                    contTalla = contTalla + 1
+                orden[5].text = xl[j]
+                    contTalla = contTalla + 1
+                orden[6].text = xxl[j]
+                    contTalla = contTalla + 1
+                orden[7].text = xxxl[j]
+                    contTalla = contTalla + 1
+                orden[8].text = uni[j]
+                
+            if orden[contTalla] == nil then
+                break
+            end
+            
+        end
+
+    end
+end
+
 
 function scene:createScene( event )
     
 end
 
 function scene:enterScene( event )
-
-	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
-
     vw = self.view
 
     vw:insert(grupoPedido)
@@ -320,6 +530,24 @@ function scene:enterScene( event )
     btnVerHome.y = top + 20
     grupoPedido:insert(btnVerHome)
 
+
+    imageAnterior = display.newImage("img/app/arrowBackW.png" , width_s / 2 + 250 , top + 15)
+    imageAnterior.height = 50
+    imageAnterior.width = 60
+    imageAnterior.num = 0
+    imageAnterior.alpha = 0
+    imageAnterior.tipo = 0
+    imageAnterior:addEventListener('tap', cambiarSegmentoPedido )
+    grupoPedido:insert(imageAnterior)
+   
+    imageSiguiente = display.newImage("img/app/arrowNextW.png" , width_s / 2 + 320 , top + 15)
+    imageSiguiente.height = 50
+    imageSiguiente.width = 60
+    imageSiguiente.num = 2
+    imageSiguiente.tipo = 1
+    imageSiguiente:addEventListener('tap', cambiarSegmentoPedido )
+    grupoPedido:insert(imageSiguiente)
+
     local idpedido = event.params.idPedido
     print("idpedido: " .. idpedido)
     --local idpedido = 1
@@ -336,13 +564,18 @@ function scene:enterScene( event )
     contArticulosCargados = 0
     --obtiene el detalle del pedido y crea las filas en la funcion crearFilaDetallePedido
     db_pedido.getDetallePedido(idpedido)
+
+    if contItem <= 4 then
+        imageSiguiente.alpha = 0
+    end
+
     local totalPedido = 0
 
     tdTxtHeader[11] = display.newText( {
         --text = "$" .. db_pedido.getTotalPedido(idpedido),  
-        text = "$" .. "7,200",   
-        x = poscXH + tdHeaderWitdh[11]/2 - 4, y = poscTabla - 10, width = tdHeaderWitdh[11] - 10,
-        font = native.BrushScriptStd, fontSize = 22, align = "left"
+        text = "$" .. "102,200",   
+        x = poscXH + tdHeaderWitdh[11]/2, y = poscTabla - 10, width = tdHeaderWitdh[11],
+        font = native.BrushScriptStd, fontSize = 20, align = "right"
     })
     tdTxtHeader[11]:setFillColor( 0 )
     grupoPedido:insert(tdTxtHeader[11])

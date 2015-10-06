@@ -11,7 +11,6 @@ local storyboard = require("storyboard")
 local db_sincronizacion = require ("include.db_sincronizacion")
 local db_sucursal = require ("include.db_sucursal")
 local db_pedido = require ("include.db_pedido")
-local Globals = require('include.Globals')
 
 local scene = storyboard.newScene()
 local grupoCatalogoRestante = display.newGroup()
@@ -1015,72 +1014,72 @@ function cambiarSegmentoPedido( event )
 		imageRegresarAnterior.num = imageRegresarAnterior.num + 1
 
 		local contTalla = 1
-		
-		for j = pedidoActual, pedidoActual + 4, 1 do
-		
-			xs[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			s[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			m[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			l[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xxl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xxxl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			uni[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			
-			if txtTalla[contTalla] == nil then
-				break
-			end
-			
-		end
+        
+        for j = pedidoActual, pedidoActual + 3, 1 do
+        
+            xs[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            s[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            m[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            l[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            uni[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            
+            if txtTalla[contTalla] == nil then
+                break
+            end
+            
+        end
 
-		pedidoActual = pedidoActual + 4
-		
-		if txtTalla[pedidoActual] ~= nill then
-		
-			local contTalla = 1
-		
-			for j = pedidoActual, pedidoActual + 4, 1 do
-			
-				txtTalla[contTalla].text = xs[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = s[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = m[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = l[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = xl[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = xxl[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = xxxl[j]
-					contTalla = contTalla + 1
-				txtTalla[contTalla].text = uni[j]
-					contTalla = contTalla + 1
-					
-				if txtTalla[contTalla] == nil then
-					break
-				end
-				
-			end
+        pedidoActual = pedidoActual + 4
+        
+        if txtTalla[pedidoActual] ~= nill then
+        
+            local contTalla = 1
+        
+            for j = pedidoActual, pedidoActual + 3, 1 do
+            
+                txtTalla[contTalla].text = xs[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = s[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = m[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = l[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = xl[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = xxl[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = xxxl[j]
+                    contTalla = contTalla + 1
+                txtTalla[contTalla].text = uni[j]
+                    contTalla = contTalla + 1
+                    
+                if txtTalla[contTalla] == nil then
+                    break
+                end
+                
+            end
 
-		end	
+        end 
 
 	else
 		transition.to( grupoSegmento[event.target.num], 	 { x = 0, time = 400, transition = easing.outExpo } )
@@ -1098,67 +1097,68 @@ function cambiarSegmentoPedido( event )
 
 		local contTalla = 1
 		
-		for j = pedidoActual, pedidoActual + 4, 1 do
-		
-			xs[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			s[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			m[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			l[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xxl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			xxxl[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			uni[j] = txtTalla[contTalla].text
-				txtTalla[contTalla].text = 0
-				contTalla = contTalla + 1
-			
-			if txtTalla[contTalla] == nil then
-				break
-			end
-			
-		end
-		
-		pedidoActual = pedidoActual - 4
-		
-		local contTalla = 1
-		
-		for j = pedidoActual, pedidoActual + 4, 1 do
-		
-			txtTalla[contTalla].text = xs[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = s[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = m[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = l[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = xl[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = xxl[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = xxxl[j]
-				contTalla = contTalla + 1
-			txtTalla[contTalla].text = uni[j]
-				contTalla = contTalla + 1
-				
-			if txtTalla[contTalla] == nil then
-				break
-			end
-			
-		end
+		for j = pedidoActual, pedidoActual + 3, 1 do
+        
+            xs[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            s[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            m[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            l[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            xxxl[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            uni[j] = txtTalla[contTalla].text
+                txtTalla[contTalla].text = 0
+                contTalla = contTalla + 1
+            
+            if txtTalla[contTalla] == nil then
+                break
+            end
+            
+        end
+        
+        pedidoActual = pedidoActual - 4
+        
+        local contTalla = 1
+        
+        for j = pedidoActual, pedidoActual + 3, 1 do
+        
+        
+            txtTalla[contTalla].text = xs[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = s[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = m[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = l[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = xl[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = xxl[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = xxxl[j]
+                contTalla = contTalla + 1
+            txtTalla[contTalla].text = uni[j]
+                contTalla = contTalla + 1
+                
+            if txtTalla[contTalla] == nil then
+                break
+            end
+            
+        end
 
 	end
 end
@@ -1169,7 +1169,6 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
-	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
 	grupoCatalogoRestante = display.newGroup()
 	vw = self.view
 
