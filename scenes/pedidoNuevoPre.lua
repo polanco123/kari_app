@@ -8,6 +8,7 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
+local Globals = require('include.Globals')
 
 local screen = storyboard.newScene()
 
@@ -103,6 +104,7 @@ function formularioPedido( event )
                     } 
                 }
                 timeMarker = timer.performWithDelay( 250, function ( )
+					storyboard.removeScene("screens.pedidoNuevo")
                     storyboard.gotoScene("scenes.pedidoNuevo", options)
                 end, 1)
             else
@@ -116,6 +118,7 @@ function formularioPedido( event )
                 }
                 
                 timeMarker = timer.performWithDelay( 250, function ( )
+					storyboard.removeScene("screens.pedidoSucursalCatalogoRestante")
                     storyboard.gotoScene("scenes.pedidoSucursalCatalogoRestante", options)
                 end, 1)
             end
@@ -369,6 +372,10 @@ end
 
 function screen:enterScene( event )
 
+	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
+
+	print('jawdnawjdnakjwndjkawdnkjawdnkjawndkjawdjaw djaw djaw')
+
 	grupoPedidoNuevoPre = display.newGroup()
 
 	vw = self.view
@@ -528,11 +535,17 @@ function screen:enterScene( event )
 end
 
 function screen:exitScene( event )
+	print('tioyjrijirtnjirtnjriotnritnritnio')
+end
 
+function screen:destroyScene( event )
+	print('ofhkomhtykhmftkhmtkmhfktmfkhftm')
 end
 
 screen:addEventListener("createScene", screen)
 screen:addEventListener("enterScene",  screen)
 screen:addEventListener("exitScene",   screen)
+screen:addEventListener("destroyScene",   screen)
+
 
 return screen

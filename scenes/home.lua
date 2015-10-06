@@ -14,6 +14,7 @@ local conexionSQLite = require ("include.conexion_sqlite")
 require('include.header')
 local db_pedido = require ("include.db_pedido")
 local db_sincronizacion = require ("include.db_sincronizacion")
+local Globals = require('include.Globals')
 --db
 --iniciar base de datos
 conexionSQLite.setupSquema()
@@ -47,6 +48,7 @@ function verCatalogo( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
+			storyboard.removeScene("screens.catalogoHome")
 			storyboard.gotoScene("screens.catalogoHome")
 	    end, 1)
     end
@@ -59,6 +61,7 @@ function verPedido( event )
 		cargarLoading()
 		local options = { params = { idPedido = event.target.idPedido  } }
 		timeMarker = timer.performWithDelay( 250, function ( )
+			storyboard.removeScene("screens.verPedido2")
 			storyboard.gotoScene("scenes.verPedido2", options)
 			
 	    end, 1)
@@ -68,7 +71,9 @@ end
 
 function verAgregarPedido( event )
 	cargarLoading()
+		print('dawhjdbawhjdbawhjdbawhdbawhdbawhjdbahwdaw dhjaw hd awhd awhhaw')
 		timeMarker = timer.performWithDelay( 250, function ( )
+			storyboard.removeScene("screens.pedidoNuevoPre")
 		    storyboard.gotoScene("scenes.pedidoNuevoPre")
 		end, 1)
 	--if ( event.phase == "ended" or event.phase == "submitted" ) then  
@@ -80,6 +85,7 @@ function verAgregarCliente( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
+			storyboard.removeScene("screens.clienteNuevo")
 			storyboard.gotoScene("screens.clienteNuevo")
 	    end, 1)
 	end
@@ -89,6 +95,7 @@ function verAgregarSucursal( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
+			storyboard.removeScene("screens.sucursalNueva")
 			storyboard.gotoScene("screens.sucursalNueva")
 	    end, 1)
 	end
@@ -285,9 +292,6 @@ end
 
 function scene:createScene( event )
 
-end
-
-function scene:enterScene( event )
 	vw = self.view
 
 	vw:insert(grupoHome)
@@ -440,6 +444,10 @@ function scene:enterScene( event )
 
 	print(system.DocumentsDirectory)
 
+end
+
+function scene:enterScene( event )
+	Globals.scene[1] = storyboard.getCurrentSceneName()
 end
 
 function scene:exitScene( event )

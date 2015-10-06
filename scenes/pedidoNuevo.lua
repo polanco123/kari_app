@@ -8,6 +8,7 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
+local Globals = require('include.Globals')
 
 local db_sucursal = require ("include.db_sucursal")
 
@@ -114,7 +115,7 @@ function verCatalogoRestante( event )
         
 
         timeMarker = timer.performWithDelay( 250, function ( )
-
+			storyboard.removeScene("screens.pedidoSucursalCatalogoRestante")
             storyboard.gotoScene("scenes.pedidoSucursalCatalogoRestante", options)
             
         end, 1)
@@ -563,9 +564,14 @@ function cambiarSegmentoPedido( event )
 end
 
 function scene:createScene( event )
+
 end
 
 function scene:enterScene( event )
+
+	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
+
+	print('adawdbaw jdk awjd akjw djaw dawdn awjdn awjd jaw djaw dawjd akjdaw dkjanwdjaw dkj')
 
 	grupoPedidoNuevo = display.newGroup()
 
