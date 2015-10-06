@@ -9,6 +9,7 @@
 -- requires--
 local widget = require("widget")
 local storyboard = require("storyboard")
+local Globals = require('include.Globals')
 --local conexionServer = require ("include.conexion_server")
 local conexionSQLite = require ("include.conexion_sqlite")
 require('include.header')
@@ -289,6 +290,9 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
+
+	Globals.scene[1] = storyboard.getCurrentSceneName()
+
 	vw = self.view
 
 	vw:insert(grupoHome)

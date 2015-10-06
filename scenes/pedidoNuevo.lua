@@ -8,6 +8,7 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
+local Globals = require('include.Globals')
 
 local db_sucursal = require ("include.db_sucursal")
 
@@ -565,6 +566,8 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
+
+	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
 
 	grupoPedidoNuevo = display.newGroup()
 
