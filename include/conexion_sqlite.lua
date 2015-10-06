@@ -10,7 +10,7 @@ local dbManager = {}
         local pathBase = system.pathForFile(nil, system.DocumentsDirectory)
         print("Pathbase: " .. pathBase)
         if findLast(pathBase, "/data/data") > -1 then
-            local newFile = pathBase:gsub("/app_data", "") .. "/databases/karisur_2.db"
+            local newFile = pathBase:gsub("/app_data", "") .. "/databases/karisur.db"
             local fhd = io.open( newFile )
             if fhd then
                 fhd:close()

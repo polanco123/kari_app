@@ -8,7 +8,7 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
-local Globals = require('include.Globals')
+
 local screen = storyboard.newScene()
 
 local grupoPedidoNuevoPre = display.newGroup()
@@ -68,20 +68,18 @@ local poscY = 39
 
 -----------------------------------
 
---[[local function onKeyEvent( event )
+local function onKeyEvent( event )
     local keyName = event.keyName
     local phase = event.phase
 
     if ("back" == keyName and phase == "down") or ("b" == keyName and phase == "down" and system.getInfo("environment") == "simulator")  then 
-        storyboard.gotoScene("screens.home")
+        storyboard.gotoScene("scenes.home")
     end
-end]]
+end
 
 
 function verHome( event )
     if ( event.phase == "ended") then
-		Globals.scene = nil
-		Globals.scene = {}
         storyboard.gotoScene("scenes.home")
     end    
 end
@@ -214,7 +212,7 @@ function closeOptionComboCliente( event )
         
     end
     
-    grupoDroboxOptionCliente.x = 1100
+    grupoDroboxOptionCliente.x = 900
 
     return true
 end
@@ -229,7 +227,7 @@ function closeOptionComboSucursal( event )
 
     end
 
-    grupoDroboxOptionSucursal.x = 1100
+    grupoDroboxOptionSucursal.x = 900
 
     return true
 end
@@ -371,8 +369,6 @@ end
 
 function screen:enterScene( event )
 
-	Globals.scene[#Globals.scene] = storyboard.getCurrentSceneName()
-
 	grupoPedidoNuevoPre = display.newGroup()
 
 	vw = self.view
@@ -383,7 +379,7 @@ function screen:enterScene( event )
     grupoPedidoNuevoPre:insert(header)
     grupoLoad = display.newGroup()
     
-    grupoDroboxOptionCliente.x = 1100
+    grupoDroboxOptionCliente.x = 900
 
     opcionesSucursal= {}
     labelOpcionSucursal = {}
@@ -517,9 +513,9 @@ function screen:enterScene( event )
     
     poscY = 41
     
-    grupoDroboxOptionCliente.x = 1100
+    grupoDroboxOptionCliente.x = 900
 
-    grupoDroboxOptionSucursal.x = 1100
+    grupoDroboxOptionSucursal.x = 900
     
     createOptionCliente()
 

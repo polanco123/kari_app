@@ -1,11 +1,8 @@
 
 local Sprites = require('resources.Sprites')
-local Globals = require( 'include.Globals' )
 local storyboard = require( "storyboard" )
 
 local grpLoading
-
-local btnBackFunction = false
 
 
 Header = {}
@@ -105,39 +102,6 @@ function Header:new()
 			getLoading()
 		end
 	end
-	
-	---regresamos a la scena anterior
-	function returnScene( event )
-	
-	
-        -- Obtenemos escena anterior y eliminamos del arreglo
-        if #Globals.scene > 2 then
-			
-            local previousScene = Globals.scene[#Globals.scene - 1]
-			local currentScene = Globals.scene[#Globals.scene]
-			
-			print(previousScene)
-			
-			if previousScene == currentScene then
-				while previousScene == currentScene do
-					previousScene = Globals.scene[#Globals.scene - 1]
-					table.remove(Globals.scene, #Globals.scene)
-				end
-				
-			else
-				table.remove(Globals.scene, #Globals.scene)
-				table.remove(Globals.scene, #Globals.scene)
-			end
-			
-			storyboard.gotoScene( previousScene, { time = 400, effect = "slideRight" })
-			
-		else
-			Globals.scene = nil
-			Globals.scene = {}
-			storyboard.gotoScene( "scenes.home", { time = 400, effect = "slideRight" })
-        end
-		
-    end
 
 	return self
 end
@@ -154,7 +118,13 @@ local function onKeyEventBack( event )
 			--native.showAlert( "Go Deals", Globals.scene[#Globals.scene] , { "OK"})
 			--native.showAlert( "Go Deals", modalActive , { "OK"})
 			
-			if Globals.scene[#Globals.scene] == "scenes.home" then
+			if modalActive == "Search" then
+				hideSearch()
+			elseif modalActive == "MenuLeft" then
+				hideMenuLeft()
+			elseif modalActive == "Filter" then
+				CloseModal()
+			elseif Globals.scene[#Globals.scene] == "src.Home" then
 				return false
 			else
 				returnScene()

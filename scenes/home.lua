@@ -10,14 +10,12 @@
 local widget = require("widget")
 local storyboard = require("storyboard")
 --local conexionServer = require ("include.conexion_server")
-local Globals = require('include.Globals')
 local conexionSQLite = require ("include.conexion_sqlite")
 require('include.header')
 local db_pedido = require ("include.db_pedido")
 local db_sincronizacion = require ("include.db_sincronizacion")
 --db
 --iniciar base de datos
-
 conexionSQLite.setupSquema()
 
 local scene = storyboard.newScene()
@@ -26,15 +24,15 @@ local grupoHome = display.newGroup()
 local tableHome
 
 --variables del screen
-local top = display.topStatusBarContentHeight + 15
-local width_s = display.contentWidth 
-local height_s = display.contentHeight 
+local top = display.topStatusBarContentHeight
+local width_s = display.contentWidth
+local height_s = display.contentHeight
 local poscTabla = height_s/2 + 25
 local posicion_y = 5
 
 --variables de tabla pedidos - home
 local tdHeaderName = {'Folio','Sucursal','Cliente','Fecha','Estado',''}
-local tdHeaderWitdh = {80,290,290,130,130,90}
+local tdHeaderWitdh = {80,220,220,110,130,75}
 local filaPedido = {}
 local folio = {}
 local sucursal = {}
@@ -49,7 +47,6 @@ function verCatalogo( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
-			storyboard.removeScene("screens.catalogoHome")
 			storyboard.gotoScene("screens.catalogoHome")
 	    end, 1)
     end
@@ -62,7 +59,6 @@ function verPedido( event )
 		cargarLoading()
 		local options = { params = { idPedido = event.target.idPedido  } }
 		timeMarker = timer.performWithDelay( 250, function ( )
-			storyboard.removeScene("screens.verPedido2")
 			storyboard.gotoScene("scenes.verPedido2", options)
 			
 	    end, 1)
@@ -73,7 +69,6 @@ end
 function verAgregarPedido( event )
 	cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
-			storyboard.removeScene("screens.pedidoNuevoPre")
 		    storyboard.gotoScene("scenes.pedidoNuevoPre")
 		end, 1)
 	--if ( event.phase == "ended" or event.phase == "submitted" ) then  
@@ -85,7 +80,6 @@ function verAgregarCliente( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
-			storyboard.removeScene("screens.clienteNuevo")
 			storyboard.gotoScene("screens.clienteNuevo")
 	    end, 1)
 	end
@@ -95,7 +89,6 @@ function verAgregarSucursal( event )
 	if ( event.phase == "ended") then
 		cargarLoading()
 		timeMarker = timer.performWithDelay( 250, function ( )
-			storyboard.removeScene("screens.sucursalNueva")
 			storyboard.gotoScene("screens.sucursalNueva")
 	    end, 1)
 	end
@@ -210,7 +203,7 @@ function crearFilaH( items, posc )
 
 	sucursal[posc] = display.newText( {
 		text = items.nombresucursal,     
-		x = tdHeaderWitdh[2]/2 + poscXL + 5, y = posicion_y + 30, width = tdHeaderWitdh[2] - 15,
+		x = tdHeaderWitdh[2]/2 + poscXL + 5, y = posicion_y + 10, width = tdHeaderWitdh[2] - 15,
 		font = native.BrushScriptStd, fontSize = 14, align = "center"
 	})
 	sucursal[posc]:setFillColor( 0 )
@@ -220,7 +213,7 @@ function crearFilaH( items, posc )
 
 	cliente[posc] = display.newText( {
 		text = items.razonsocialcliente,     
-		x = tdHeaderWitdh[3]/2 + poscXL + 5, y = posicion_y + 30, width = tdHeaderWitdh[3] - 15,
+		x = tdHeaderWitdh[3]/2 + poscXL + 5, y = posicion_y + 10, width = tdHeaderWitdh[3] - 15,
 		font = native.BrushScriptStd, fontSize = 14, align = "center"
 	})
 	cliente[posc]:setFillColor( 0 )
@@ -263,7 +256,7 @@ function crearFilaH( items, posc )
     	emboss = true,
     	shape = "roundedRect",
     	labelColor = { default = { 1, 1, 1 }, over = { 163, 25, 12} },
-    	width = tdHeaderWitdh[6] - 20,
+    	width = tdHeaderWitdh[6],
     	height = 30,
     	cornerRadius = 3
     })
@@ -296,8 +289,6 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
-	
-	Globals.scene[1] = storyboard.getCurrentSceneName()
 	vw = self.view
 
 	vw:insert(grupoHome)

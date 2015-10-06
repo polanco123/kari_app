@@ -10,6 +10,7 @@ local mime   = require("mime")
 local json   = require("json")
 local crypto = require("crypto")
 
+
 local conexionServer = require ("include.conexion_server")
 local conexionSQLite = require ("include.conexion_sqlite")
 
@@ -72,10 +73,9 @@ db_pedido.insertarDetallePedidoServidorConString = function ( folio, idsucursal,
 	else
 		print("Detalle pedido de la sucursal: " .. detallePedidoCatalogoSucursal)
 	end
-	--conexionServer.insertarDetallePedidoServidorConString(folio, idsucursal, detallePedidoCatalogoSucursal, detallePedidoCatalogoRestante )
 	
-	native.showAlert( "DB PEDIDO", "" .. detallePedidoCatalogoRestante, { "OK" } )
-
+	conexionServer.insertarDetallePedidoServidorConString(folio, idsucursal, detallePedidoCatalogoSucursal, detallePedidoCatalogoRestante )
+	
 	return true
 
 end
