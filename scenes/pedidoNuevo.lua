@@ -363,8 +363,9 @@ function ingresandoOrden( event )
 
         --print(numFila)
 
-        numFila = ( imageAnterior.num * 3 ) + numFila
-
+        numFila = ( imageAnterior.num * 4 ) + numFila
+        --cambiado
+        
         if tallaTextEvent == 1 then
             xs[numFila] = numeroOrden
         elseif tallaTextEvent ==  2 then
@@ -412,7 +413,7 @@ function cambiarSegmentoPedido( event )
 
         local contTalla = 1
         
-        for j = pedidoActual, pedidoActual + 3, 1 do
+        for j = pedidoActual, pedidoActual + 3, 1 do --cambiar a 4!
         
             xs[j] = txtTalla[contTalla].text
                 txtTalla[contTalla].text = 0

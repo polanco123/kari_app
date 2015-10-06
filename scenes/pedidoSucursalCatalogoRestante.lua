@@ -421,7 +421,8 @@ function ingresandoOrden2( event )
 		local numFila = event.target.txtNumFila
 
 		--print(numFila) 
-		numFila = ( imageRegresarAnterior.num * 3 ) + numFila
+		--(4 es la cantidad de articulos que se ven x seccion)
+		numFila = ( imageRegresarAnterior.num * 4 ) + numFila
 
 		print("num de flecha: " .. imageRegresarAnterior.num)
 
@@ -1014,7 +1015,7 @@ function cambiarSegmentoPedido( event )
 
 		local contTalla = 1
 		
-		for j = pedidoActual, pedidoActual + 3, 1 do
+		for j = pedidoActual, pedidoActual + 4, 1 do
 		
 			xs[j] = txtTalla[contTalla].text
 				txtTalla[contTalla].text = 0
@@ -1053,7 +1054,7 @@ function cambiarSegmentoPedido( event )
 		
 			local contTalla = 1
 		
-			for j = pedidoActual, pedidoActual + 3, 1 do
+			for j = pedidoActual, pedidoActual + 4, 1 do
 			
 				txtTalla[contTalla].text = xs[j]
 					contTalla = contTalla + 1
@@ -1096,7 +1097,7 @@ function cambiarSegmentoPedido( event )
 
 		local contTalla = 1
 		
-		for j = pedidoActual, pedidoActual + 3, 1 do
+		for j = pedidoActual, pedidoActual + 4, 1 do
 		
 			xs[j] = txtTalla[contTalla].text
 				txtTalla[contTalla].text = 0
@@ -1133,8 +1134,7 @@ function cambiarSegmentoPedido( event )
 		
 		local contTalla = 1
 		
-		for j = pedidoActual, pedidoActual + 3, 1 do
-		
+		for j = pedidoActual, pedidoActual + 4, 1 do
 		
 			txtTalla[contTalla].text = xs[j]
 				contTalla = contTalla + 1
