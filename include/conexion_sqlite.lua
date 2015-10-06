@@ -223,7 +223,7 @@ local dbManager = {}
 		closeConnection( )
 	end
 	
-	dbManager.getSucursalPedidoTemporal = function ( )
+	--[[dbManager.getSucursalPedidoTemporal = function ( )
 		openConnection()
 		for row in db:nrows("SELECT idsucursal from sucursalpedidotemporal order by id desc limit 1;") do
 			closeConnection( )
@@ -237,7 +237,7 @@ local dbManager = {}
         "(" .. idsucursal .. "); "
 		db:exec( queryInsert )
 		closeConnection()
-	end
+	end]]
 
 	dbManager.getNumSucursales = function ( idcliente )
 		openConnection( )
@@ -337,9 +337,6 @@ local dbManager = {}
 		end
 	end
 
-
-
-
 	--funcion para insertar un pedido y ya se tiene el folio (se inserto previamente en el servidor)
 	dbManager.insertPedido =  function ( folio, idsucursal, fecha, total )
 		openConnection( )
@@ -380,7 +377,7 @@ local dbManager = {}
 
 	--Pedido temporal--
 
-	dbManager.getPedidoTemporal =  function ( )
+	--[[dbManager.getPedidoTemporal =  function ( )
 		openConnection( )
 		local row_res
 
@@ -411,6 +408,8 @@ local dbManager = {}
 		return row_res
 
 	end
+
+
 
 	dbManager.insertarEnPedidoTemporal = function ( idsucursal, fecha )
 		openConnection( )
@@ -467,6 +466,8 @@ local dbManager = {}
 		db:exec( queryInsert )
 		closeConnection()
 	end
+
+	]]
 
 	-- end pedidos --
 
@@ -551,9 +552,9 @@ local dbManager = {}
         --datos catalogo
 
 		query = "INSERT INTO catalogo (id, sku, descripcion, imagen, costo, activo) VALUES"..
-		"(1,'4810101009','PL AD SOL PANAMA BLANCO','CUNPAO02011.jpg','70', '1'),"..
-		"(2,'4810101073','PL AD 3 DELFINES BRINCANDO MARINO','9041.jpg','70', '1'),"..
-		"(3,'4810101105','PL AD MARGARITAS BLANCO','CUNPAO02011.jpg','70', '1'),"..
+		"(1,'4810101009','PL AD SOL PANAMA BLANCO','4810101009.jpg','70', '1'),"..
+		"(2,'4810101073','PL AD 3 DELFINES BRINCANDO MARINO','4810101073.jpg','70', '1'),"..
+		"(3,'4810101105','PL AD MARGARITAS BLANCO','4810101105.jpg','70', '1'),"..
 		"(4,'4810101382','PL AD PEZ VELA MARINO','4810101382.jpg','70', '1'),"..
 		"(5,'4810101459','PL AD GEKO RECTANGULO OLIVO','4810101459.jpg','70', '1'),"..
 		"(6,'4810101470','PL AD CHANCLITAS ROSA','4810101470.jpg','70', '1'),"..
@@ -4612,11 +4613,6 @@ local dbManager = {}
 		query = "update catalogo set tipo = 't' where sku = trim('PN300TRM01411');" db:exec( query )
 		query = "update catalogo set tipo = 't' where sku = trim('PN300TRM01473');" db:exec( query )
 		query = "update catalogo set tipo = 't' where sku = trim('PN300TRM08973');" db:exec( query )
-
-
-
-
-
 
 
 		--llenar con los datos de las tallas
@@ -11554,7 +11550,7 @@ db:exec( query2 )
 
 
 		--llenar con los datos de los catalogos de las sucursales
-        query2 = "INSERT INTO refsucursalcatalogo VALUES " .. 
+        --[[query2 = "INSERT INTO refsucursalcatalogo VALUES " .. 
         "(1, 1, '1'), " ..
         "(2, 1, '2'), " ..
         "(3, 1, '3'), " ..
@@ -11575,25 +11571,14 @@ db:exec( query2 )
         "(18, 2, '15'), " ..
         "(19, 2, '16'), " ..
         "(34, 2, '1'), " ..
-        "(34, 2, '2');" 
+        "(34, 2, '2');" ]]
 
 		db:exec( query2 )
 
-
 		--llenar con los datos de los pedidos
-       	--[[query2 = "INSERT INTO pedidotemporal (id, idsucursal, fecha, estado) VALUES " .. 
-        "(1, 1, '2015-07-14', 1), " ..
-		"(2, 2, '2015-05-14', 1); "
-
-		db:exec( query2 )]]
-
-
-		--llenar con los datos de los pedidos
-        query2 = "INSERT INTO pedido VALUES " .. 
+        --[[query2 = "INSERT INTO pedido VALUES " .. 
         "(1, 1, 1, '2015-05-12', 5600,  1); "
-
 		db:exec( query2 )
-
 
 		--llenar con los datos de los detalles de los pedidos
         query2 = "INSERT INTO detallepedido VALUES " .. 
@@ -11602,26 +11587,6 @@ db:exec( query2 )
 		"(3, 1, 1, 4, 10), "..
 		"(4, 1, 2, 3, 25), "..
 		"(5, 1, 2, 4, 20); "
-
-
-		db:exec( query2 )
-		
-
-		--[[llenar con los datos de los detalles de los pedidos
-        query2 = "INSERT INTO detallepedido VALUES " .. 
-        "(1, 1, 1, 2, 10), "..
-		"(2, 1, 1, 3, 15), "..
-		"(3, 1, 1, 4, 10), "..
-		"(4, 1, 2, 2, 10), "..
-		"(5, 1, 2, 3, 15), "..
-		"(6, 1, 2, 4, 10), "..
-		"(7, 1, 1, 2, 10), "..
-		"(8, 1, 1, 3, 15), "..
-		"(9, 1, 1, 4, 10), "..
-		"(10, 1, 3, 2, 10), "..
-		"(11, 1, 3, 3, 15), "..
-		"(12, 1, 3, 4, 10); "
-		
 		db:exec( query2 )]]
 
         --populate config
