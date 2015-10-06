@@ -11,6 +11,7 @@ local storyboard = require("storyboard")
 local db_sincronizacion = require ("include.db_sincronizacion")
 local db_sucursal = require ("include.db_sucursal")
 local db_pedido = require ("include.db_pedido")
+local Globals = require('include.Globals')
 
 local scene = storyboard.newScene()
 local grupoCatalogoRestante = display.newGroup()
@@ -1168,6 +1169,7 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
+	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
 	grupoCatalogoRestante = display.newGroup()
 	vw = self.view
 

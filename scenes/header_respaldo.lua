@@ -20,42 +20,6 @@ function Header:new()
     local self = display.newGroup()
 
 
-    -- Return button Android Devices
-	local function onKeyEventBack( event )
-		local phase = event.phase
-		local keyName = event.keyName
-		local platformName = system.getInfo( "platformName" )
-		
-		if( "back" == keyName and phase == "up" ) then
-			--native.showAlert( "Go Deals", "hola" , { "OK"})
-			if ( platformName == "Android" ) then
-				--native.showAlert( "Go Deals", Globals.scene[#Globals.scene] , { "OK"})
-				--native.showAlert( "Go Deals", modalActive , { "OK"})
-				
-				if modalActive == "Search" then
-					hideSearch()
-				elseif modalActive == "MenuLeft" then
-					hideMenuLeft()
-				elseif modalActive == "Filter" then
-					CloseModal()
-				elseif Globals.scene[#Globals.scene] == "src.Home" then
-					return false
-				else
-					returnScene()
-				end
-				return true
-				
-			end
-		end
-		return false
-	end
-
-	if btnBackFunction == false then
-		btnBackFunction = true
-		Runtime:addEventListener( "key", onKeyEventBack )
-	end
-
-
 	function getNoContent(obj, txtData)
 		if not grpLoading then
 			grpLoading = display.newGroup()

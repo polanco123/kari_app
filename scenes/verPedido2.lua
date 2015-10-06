@@ -9,6 +9,7 @@ require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
 local db_pedido = require ("include.db_pedido")
+local Globals = require('include.Globals')
 
 local scene = storyboard.newScene()
 local grupoPedido = display.newGroup()
@@ -202,6 +203,9 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
+
+	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
+
     vw = self.view
 
     vw:insert(grupoPedido)
