@@ -8,7 +8,6 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
-local Globals = require('include.Globals')
 
 local db_sucursal = require ("include.db_sucursal")
 
@@ -50,6 +49,7 @@ local xxl = {}
 local xxxl = {}
 local uni = {}
 -- end tallas
+local imageRegresarAnterior, imageRegresarSiguiente
 
 local limiteSegmento = 100
 --contador para los articulos que se han cargado
@@ -363,10 +363,10 @@ function ingresandoOrden( event )
         local numFila = event.target.txtNumFila
 
         --print(numFila)
-
+        --(4 es la cantidad de articulos que se ven)
         numFila = ( imageAnterior.num * 4 ) + numFila
         --cambiado
-        
+
         if tallaTextEvent == 1 then
             xs[numFila] = numeroOrden
         elseif tallaTextEvent ==  2 then
@@ -414,7 +414,7 @@ function cambiarSegmentoPedido( event )
 
         local contTalla = 1
         
-        for j = pedidoActual, pedidoActual + 3, 1 do --cambiar a 4!
+        for j = pedidoActual, pedidoActual + 3, 1 do
         
             xs[j] = txtTalla[contTalla].text
                 txtTalla[contTalla].text = 0
@@ -566,8 +566,6 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
-
-	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
 
 	grupoPedidoNuevo = display.newGroup()
 

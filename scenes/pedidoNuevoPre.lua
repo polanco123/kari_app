@@ -8,7 +8,6 @@
 require('include.header')
 local widget = require("widget")
 local storyboard = require("storyboard")
-local Globals = require('include.Globals')
 
 local screen = storyboard.newScene()
 
@@ -369,8 +368,6 @@ function screen:createScene( event )
 end
 
 function screen:enterScene( event )
-
-	Globals.scene[#Globals.scene + 1] = storyboard.getCurrentSceneName()
 
 	grupoPedidoNuevoPre = display.newGroup()
 

@@ -368,6 +368,56 @@ conexion_server.getCatalogoRestante = function (lastIdCatalogoInterno )
 	network.request( url , "POST", callback, params )
 end
 
+conexion_server.sincronizarPedidos = function ( idVendedor )
+	--se eliminan los pedidos donde coincidan en folio traidos del servidor
+	--que ya esten ene stado 2 (entregados)
+	
+	--[[for i = 1, #arrayFoliosLocales, 1 do
+		print("folio local: " .. arrayFoliosLocales[i])
+	end]]
+	print("idvendedor: " .. idVendedor)
+
+	local url = baseURL .. "app/getFoliosPedidosEntregados"
+	local headers = { }
+	headers["Content-Type"] = "application/x-www-form-urlencoded"
+	local params = { }
+	local body = {}
+
+	params.headers = headers
+	local strEnviar = "idVendedor=" .. idVendedor
+	params.body = strEnviar
+
+	local function callback(event)
+		
+		if(event.isError) then
+			print("error no lo trajo")
+			return false
+		else
+			local data = json.decode(event.response)
+
+			--si regreso bien la consulta
+			if data.success == true then
+
+				--recorrer los folios entregados
+				for i = 1, #data.foliosPedidosEntregados, 1 do
+					print("folio server: " .. data.foliosPedidosEntregados[i])
+
+					--eliminar los pedidos y detalles de pedidos locales
+					print("eliminando folio: " .. data.foliosPedidosEntregados[i])
+					conexionSQLite.eliminarPedido(data.foliosPedidosEntregados[i])
+				end
+
+				
+			else
+				print("no regreso la consulta correctamente")
+				return false
+			end
+		end
+	end
+	network.request( url , "POST", callback, params )
+
+end
+
 
 --[[conexion_server.getPedidosVendedor = function ( idVendedor)
 	

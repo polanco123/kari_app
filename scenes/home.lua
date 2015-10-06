@@ -9,7 +9,6 @@
 -- requires--
 local widget = require("widget")
 local storyboard = require("storyboard")
-local Globals = require('include.Globals')
 --local conexionServer = require ("include.conexion_server")
 local conexionSQLite = require ("include.conexion_sqlite")
 require('include.header')
@@ -143,7 +142,6 @@ function empezarSincronizacion( arraySync )
 	            if arraySync["pedido"] then
 	            	print("iniciando sinc de pedido")
 	            	db_sincronizacion.sincronizarPedidos()
-					
 				end
 			end
 	    end
@@ -290,9 +288,6 @@ function scene:createScene( event )
 end
 
 function scene:enterScene( event )
-
-	Globals.scene[1] = storyboard.getCurrentSceneName()
-
 	vw = self.view
 
 	vw:insert(grupoHome)
@@ -332,7 +327,7 @@ function scene:enterScene( event )
     btnSincronizar.y = top + 20
     grupoHome:insert(btnSincronizar)
 
-    local btnVerCatalogo =  widget.newButton({
+    --[[local btnVerCatalogo =  widget.newButton({
     	label = "Ver catálogo",
     	onEvent = verCatalogo,
     	emboss = true,
@@ -344,7 +339,7 @@ function scene:enterScene( event )
     })
     btnVerCatalogo.x = width_s / 2
     btnVerCatalogo.y = top + 20
-   	grupoHome:insert(btnVerCatalogo)
+   	grupoHome:insert(btnVerCatalogo)]]
 
 	--principales acciones de home (nuevo pedido, nuevo cliente y nueva sucursal)
 	local btnNuevoPedido = display.newRect( width_s /6  , height_s / 4  + top, width_s/ 4, height_s / 4)

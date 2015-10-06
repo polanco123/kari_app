@@ -45,11 +45,18 @@ db_sincronizacion.sincronizarPedidos = function ( )
 	--luego comparar en el servidor con ellos 
 	--y devolver solo los que estan en proceso
 
-	local resultPedidos = conexionSQLite.getPedidosVendedorResult()
+	--local foliosLocal = conexionSQLite.getFoliosPedidosVendedor()
 
-	for i = 1, #resultPedidos, 1 do
-		print(resultPedidos[i]["id"])
+	--[[for i = 1, #foliosLocal, 1 do
+		print(foliosLocal.folio_a)
 	end
+
+	foliosLocal = { 127, 123, 115}]]
+
+	local idVendedor = conexionSQLite.getIdVendedor()
+
+	conexionServer.sincronizarPedidos(idVendedor)
+
 
 	--[[local url = baseURL .. "app/syncPedidos"
 	local headers = { }

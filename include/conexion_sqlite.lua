@@ -288,6 +288,20 @@ local dbManager = {}
 		closeConnection( )
 	end
 
+	dbManager.getFoliosPedidosVendedor = function ( idVendedor )
+		openConnection( )
+		local row
+		local arrayfolios = {}
+		for row in db:nrows("SELECT ped.folio FROM pedido ped ORDER BY ped.folio;") do
+			arrayfolios[#arrayfolios+1] = 
+			{
+				folio_a = row.folio
+			}			
+		end
+		closeConnection( )
+		return arrayfolios
+	end
+
 	dbManager.getPedidosVendedorResult = function ( idVendedor )
 		openConnection( )
 		local row
@@ -374,6 +388,25 @@ local dbManager = {}
 		db:exec( queryInsert )
 		closeConnection()
 	end
+
+	dbManager.eliminarPedido =  function ( folio  )
+		openConnection( )
+		--obtener idpedido
+		local idpedido = 1
+		for row in db:nrows("SELECT id from pedido where folio = " ..folio .. " limit 1;") do
+			idpedido = row.id
+		end
+		print("idpedido(desde eliminar pedido): " .. idpedido)
+
+		local queryInsert = "DELETE FROM detallepedido dp where dp.idpedido = " .. idpedido .. "; "
+		db:exec( queryInsert )
+
+		local queryInsert = "DELETE FROM pedido where pedido.folio = " .. folio .. "; "
+		db:exec( queryInsert )
+
+		closeConnection()
+	end
+
 
 	--Pedido temporal--
 
